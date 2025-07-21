@@ -1,63 +1,86 @@
-# SSI-metric
+# Solution Stability Index (SSI) Calculator
 
-This repository provides a simple code to calculate the Solution Stability Index (SSI), a number between 0 and 1 that tells you how stable your simulation results are across three mesh levels: coarse, medium, and fine.
+This is a lightweight Python tool to calculate the **Solution Stability Index (SSI)** — a dimensionless number from 0 to 1 that quantifies the stability of simulation results across three mesh resolutions.
 
 ---
 
 ## 🧠 What is SSI?
 
-When you refine your mesh, your simulation results should become more stable. But how do you measure that? This is where SSI comes in. It tells you — using just the results — how stable things are.
+When running simulations (e.g. CFD, FEM), mesh refinement should produce more stable results. SSI evaluates this stability **without needing mesh size or grid spacing** — you only need the output values.
 
-No need to know your mesh size, no need to calculate accuracy orders, just give the 3 output values (e.g. force, pressure, drag).
+### Formula:
+1. **Average** = (coarse + medium + fine) / 3
+2. **Variation** = |medium - coarse| + |fine - medium|
+3. **Penalty** = 0.25 (if the result is inconsistent in direction)
+4. **SSI** = 1 - (variation / average) - penalty
 
----
-
-## 📌 How to Calculate
-
-Here’s how the SSI is calculated:
-
-Step 1: average = abs((coarse + medium + fine) / 3)
-Step 2: variation = abs(medium - coarse) + abs(fine - medium)
-Step 3: penalty = 0.25 if the result is not consistent (i.e. it changes direction)
-Step 4: SSI = 1 - (variation / average) - penalty
-
-
-Final result is between 0 (very unstable) and 1 (very stable).
+SSI is clamped to 0 if negative.
 
 ---
 
-## 🛠️ How to Use This Code
+## 🧪 Example
 
-If you have Python installed:
+Input:
+```
+Coarse = 10.2
+Medium = 9.8
+Fine = 10.0
+```
 
-1. Open terminal / command prompt
-2. Run:
+Output:
+```
+SSI = 0.6 (Nearly Stable)
+```
+
+---
+
+## ⚙️ How to Run
+
+You need Python 3.x installed.
 
 ```bash
-python ssi.py
+python SSI.py
+```
 
-You will see something like:
-SSI = 0.7000
+Follow the on-screen prompts. You’ll be asked to enter:
+- Coarse value
+- Medium value
+- Fine value
 
-Example
-Let’s say your results for a parameter were:
+Then the SSI result and stability classification will be shown.
 
-Coarse: 10.2
+---
 
-Medium: 9.8
+## ⚠️ Note
+- Always enter **dimensionless coefficients**, like:
+  - Ct (Torque Coefficient)
+  - Cp (Pressure Coefficient)
+  - Nu (Nusselt Number)
+- **DO NOT** enter raw values like force, pressure, etc.
 
-Fine: 10.0
+---
 
-The code will calculate:
-SSI = 0.7000
+## 📄 Output Classification
 
-Where Can You Use This?
-CFD: Pressure, torque, lift, drag
-FEM: Displacement, stress
-Heat Transfer: Nusselt number, surface heat flux
-Multiphysics: Any scalar quantity affected by grid density
-Any simulation: if you have 3 values from mesh refinement, SSI works
+| SSI Range        | Classification                     |
+|------------------|-------------------------------------|
+| 0                | Clamped to 0 (Complete Instability) |
+| 0 < SSI < 0.29   | Unstable                            |
+| 0.29 – 0.75      | Nearly Stable                       |
+| > 0.75           | Stable                              |
 
-Citation (optional)
-If this code helps your research:
-NA Settar, S Sarip, HM Kaidi, "Solution Stability Index (SSI): A Simple Post-Processing Metric for Evaluating Mesh-Induced Stability in CFD" – under review.
+---
+
+## 📁 File Structure
+
+- `SSI.py` – the main interactive CLI tool
+- No dependencies beyond built-in Python functions
+
+---
+
+## 👨‍🔬 Author
+
+Developed as part of a CFD mesh sensitivity analysis project. For technical inquiries or permission to reuse, please contact the original author.
+
+If you use this tool in your research, please cite the associated journal article (once accepted):
+NA Settar, S Sarip, HM Kaidi, Solution Stability Index (SSI): A Simple Post-Processing Metric for Evaluating Mesh-Induced Stability in CFD, under review.
