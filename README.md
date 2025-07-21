@@ -29,7 +29,7 @@ Fine = 10.0
 
 Output:
 ```
-SSI = 0.6 (Nearly Stable)
+SSI = 0.690 (Nearly Stable)
 ```
 
 ---
