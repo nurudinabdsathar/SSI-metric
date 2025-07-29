@@ -11,7 +11,7 @@ When running simulations (e.g. CFD, FEM), mesh refinement should produce more st
 ### Formula:
 1. **Average** = (coarse + medium + fine) / 3
 2. **Variation** = |medium - coarse| + |fine - medium|
-3. **Penalty** = 0.25 (if the result is inconsistent in direction)
+3. **Penalty** = 0.20 (if the result is inconsistent in direction)
 4. **SSI** = 1 - (variation / average) - penalty
 
 SSI is clamped to 0 if negative.
