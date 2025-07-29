@@ -65,9 +65,9 @@ Then the SSI result and stability classification will be shown.
 | SSI Range        | Classification                     |
 |------------------|-------------------------------------|
 | 0                | Clamped to 0 (Complete Instability) |
-| 0 < SSI < 0.29   | Unstable                            |
-| 0.29 – 0.75      | Nearly Stable                       |
-| > 0.75           | Stable                              |
+| 0 < SSI < 0.39   | Unstable                            |
+| 0.39 – 0.80      | Nearly Stable                       |
+| > 0.80           | Stable                              |
 
 ---
 
