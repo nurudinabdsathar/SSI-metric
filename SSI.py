@@ -1,7 +1,7 @@
 def compute_ssi(coarse, medium, fine):
     average = abs((coarse + medium + fine) / 3)
     variation = abs(medium - coarse) + abs(fine - medium)
-    penalty = 0.25 if (coarse - medium) * (medium - fine) < 0 else 0
+    penalty = 0.20 if (coarse - medium) * (medium - fine) < 0 else 0
 
     if average == 0:
         ssi = 0.0
@@ -13,9 +13,9 @@ def compute_ssi(coarse, medium, fine):
 
     if ssi < 0.0:
         classification = "Clamped to 0 (Complete Instability)"
-    elif 0.0 <= ssi < 0.29:
+    elif 0.0 <= ssi < 0.39:
         classification = "Unstable"
-    elif 0.29 <= ssi <= 0.75:
+    elif 0.39 <= ssi <= 0.80:
         classification = "Nearly Stable"
     else:
         classification = "Stable"
